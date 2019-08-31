@@ -2,19 +2,12 @@ package ngbanks
 
 import (
 	"encoding/json"
-	"fmt" // Test purposes, perhaps ?
+	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-/*
-* Bank struct consisting of the four object values in the JSON.
-* Name - Banks name
-* Code - Bank's reference code
-* Slug - Short tag i.e abbreviation
-* Ussd - Bank's quick service ussd code
- */
-
+// Bank defines it's structure.
 type Bank struct {
 	Name string `json:"name"`
 	Code string `json:"code"`
@@ -22,27 +15,18 @@ type Bank struct {
 	Ussd Ussd   `json:"ussd"`
 }
 
-/*
- * Banks struct is a master array taking in parameters of the Bank type.
- */
-
+// Banks which is an array of bank has a data type of Bank.
 type Banks struct {
 	Banks []Bank `json:"banks"`
 }
 
-/*
- * Ussd type, a sub type of Bank's Ussd
- */
-
+// Ussd struct of type string.
 type Ussd struct {
 	Code string `json:"code"`
 }
 
-/*
- * Open JSON file, read it and converts it to bytes before it's encoded into a variable.
- */
-
-func RetrieveBanksJSON() []byte {
+// retrieveBanksJSON() returns json data in the fle below to byte.
+func retrieveBanksJSON() []byte {
 	// Revise json address.
 	bankFile, err := os.Open("/home/Youngestev/go/src/ngbanks/db/banks.json")
 
@@ -55,17 +39,13 @@ func RetrieveBanksJSON() []byte {
 	return banksJSONed
 }
 
-/*
- * ngbank's GetBanks() method
- * returns an array of banks and their properties.
- */
-
+// GetBanks returns an array of banks.
 func GetBanks() []Bank {
 	var banks Banks
 	def := []Bank{}
 
 	// The below code should be refactored. I think.
-	json.Unmarshal(RetrieveBanksJSON(), &banks)
+	json.Unmarshal(retrieveBanksJSON(), &banks)
 
 	for i := 0; i < len(banks.Banks); i++ {
 		return banks.Banks
@@ -73,15 +53,12 @@ func GetBanks() []Bank {
 	return def
 }
 
-/*
- * ngbank's GetBank(slug) method
- * returns a bank's detail that matches the slug passed as an argument to the method.
- */
+// GetBank returns a bank details depending on the slug passed in.
 func GetBank(slug string) Bank {
 	var bankSLug Banks
 	defBank := Bank{}
 
-	json.Unmarshal(RetrieveBanksJSON(), &bankSLug)
+	json.Unmarshal(retrieveBanksJSON(), &bankSLug)
 
 	// I'm feeling like a champion - LOL !!!!
 
