@@ -1,2 +1,5 @@
-# ng-banks-go
+# NgBank
+
 Bolaji's NgBank implementation in Go.
+
+## Documentation In Progress.
