@@ -28,7 +28,7 @@ type Ussd struct {
 // retrieveBanksJSON() returns json data in the fle below to byte.
 func retrieveBanksJSON() []byte {
 	// Revise json address.
-	bankFile, err := os.Open("/home/Youngestev/go/src/ngbanks/db/banks.json")
+	bankFile, err := os.Open("./db/banks.json")
 
 	if err != nil {
 		// Basically, it should return not print.
